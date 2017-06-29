@@ -1,5 +1,5 @@
 defmodule AmSamlTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   @relay_state "http://redirect/url"
 
