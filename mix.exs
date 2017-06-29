@@ -9,6 +9,8 @@ defmodule AmSaml.Mixfile do
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
       deps: deps(),
+      package: package(),
+      description: "SAML interface for authentication.",
 
       # Docs
       name: "AmSaml",
@@ -42,6 +44,14 @@ defmodule AmSaml.Mixfile do
       {:sweet_xml, "~> 0.6.5"},
       {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.14", only: :dev, runtime: false}
+    ]
+  end
+
+  defp package do
+    [
+      maintainers: ["schinsue", "shinyford"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/ascential/am-saml"}
     ]
   end
 end
