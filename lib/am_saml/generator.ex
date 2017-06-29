@@ -10,7 +10,7 @@ defmodule AmSaml.Generator do
   def saml_response(relay_state, issue_instant, doc, optFields) do
     Map.merge(
       %{
-        "relay_state" => relay_state |> Base.url_decode64!,
+        "relay_state" => Base.url_decode64!(relay_state),
         "issue_instant" => issue_instant
         },
         Enum.reduce(
