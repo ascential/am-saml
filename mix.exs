@@ -28,7 +28,6 @@ defmodule AmSaml.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:sweet_xml, "~> 0.6.5"},
-     {:poison, "~> 3.1"}]
+    [{:sweet_xml, "~> 0.6.5"}]
   end
 end
