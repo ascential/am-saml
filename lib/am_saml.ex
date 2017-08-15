@@ -7,8 +7,8 @@ defmodule AmSaml do
   @doc """
   Provides the redirect url to the saml_provider
   """
-  def auth_redirect(%{"saml_idp_url" => saml_idp_url, "saml_issuer" => saml_issuer}, relay_state) do
-    ~s{#{saml_idp_url}?SAMLRequest=#{Encoder.auth_request(saml_issuer)}&RelayState=#{Base.url_encode64(relay_state)}}
+  def auth_redirect([idp_url, issuer], relay_state) do
+    ~s{#{idp_url}?SAMLRequest=#{Encoder.auth_request(issuer)}&RelayState=#{Base.url_encode64(relay_state)}}
   end
 
   @doc """
@@ -22,7 +22,7 @@ defmodule AmSaml do
       %{"RelayState" => "http://yoursite.com/existing_url/", "SAMLResponse" => "saml_response", "foo" => "foo", "bar" => "bar"}
 
   """
-  def auth(%{"RelayState" => relay_state, "SAMLResponse" => saml_response}, samlFields, %{"saml_cert" => saml_cert, "saml_audience" => saml_audience}) do
+  def auth(%{"RelayState" => relay_state, "SAMLResponse" => saml_response}, samlFields, [saml_cert, saml_audience]) do
     %{c: cert, a: audience, i: issue_instant, d: doc} = Decoder.saml_response(saml_response)
 
     if Validator.valid_cert?(cert, saml_cert) && Validator.valid_audience?(audience, saml_audience) do
