@@ -6,7 +6,7 @@ defmodule AmSaml.Encoder do
   @doc """
   Encodes the auth request that will be send to the SAML provider
   """
-  def auth_request do
+  def auth_request(saml_issuer) do
     ~s{
       <samlp:AuthnRequest
         xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
@@ -16,7 +16,7 @@ defmodule AmSaml.Encoder do
         IssueInstant="#{DateTime.to_iso8601(DateTime.utc_now)}"
         AssertionConsumerServiceIndex="0">
         <saml:Issuer>
-          #{Application.get_env(:am_saml, :saml_issuer)}
+          #{saml_issuer}
         </saml:Issuer>
         <samlp:NameIDPolicy
           AllowCreate="true"
