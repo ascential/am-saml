@@ -11,8 +11,6 @@ defmodule AmSaml.Decoder do
   def saml_response(resp) do
     {:ok, saml_response} = Base.decode64(resp)
 
-    Logger.info(fn -> "Decoded response " <> inspect(saml_response) end )
-
     doc = parse(saml_response, namespace_conformant: true)
     %{c: cert, a: audience, i: issue_instant} = doc |> xmap(
       c: ~x{//saml2:Assertion//ds:X509Certificate/text()}s
