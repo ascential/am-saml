@@ -27,10 +27,10 @@ defmodule AmSaml do
   def auth(%{"RelayState" => relay_state, "SAMLResponse" => saml_response}, samlFields, [saml_cert, saml_audience]) do
     %{c: cert, a: audience, i: issue_instant, d: doc} = Decoder.saml_response(saml_response)
 
-    Logger.info(fn -> "Cert:" <> inspect(cert) end )
-    Logger.info(fn -> "SAML Cert:" <> inspect(saml_cert) end )
-    Logger.info(fn -> "Audience:" <> inspect(audience) end )
-    Logger.info(fn -> "SAML Audience:" <> inspect(saml_audience) end )
+    Logger.info(fn -> "Cert:" <> inspect(String.trim(cert)) end )
+    Logger.info(fn -> "SAML Cert:" <> inspect(String.trim(saml_cert)) end )
+    Logger.info(fn -> "Audience:" <> inspect(String.trim(audience)) end )
+    Logger.info(fn -> "SAML Audience:" <> inspect(String.trim(saml_audience)) end )
 
     if Validator.valid_cert?(String.trim(cert), String.trim(saml_cert)) && Validator.valid_audience?(String.trim(audience), String.trim(saml_audience)) do
       Generator.saml_response(relay_state, issue_instant, doc, samlFields)
