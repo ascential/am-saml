@@ -3,7 +3,6 @@ defmodule AmSaml.Decoder do
   Decodes the response from the SAML provider.
   """
   import SweetXml
-  require Logger
 
   @doc """
   Decodes the SAML response and extracts the fields for further authentication
