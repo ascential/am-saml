@@ -29,11 +29,11 @@ defmodule AmSaml do
     Logger.info(fn -> "saml_response" <> inspect(Decoder.saml_response(saml_response)) end )
 
     if Validator.valid_cert?(cert, saml_cert) && Validator.valid_audience?(audience, saml_audience) do
-      Logger.info(fn -> "Cert is valid!") end )
+      Logger.info(fn -> "Cert is valid!" end )
       Generator.saml_response(relay_state, issue_instant, doc, samlFields)
       Logger.info(fn -> "Generated saml response" <> inspect(Generator.saml_response(relay_state, issue_instant, doc, samlFields)) end )
     else
-      Logger.info(fn -> "Cert is invalid!") end )
+      Logger.info(fn -> "Cert is invalid!" end )
       nil
     end
   end
