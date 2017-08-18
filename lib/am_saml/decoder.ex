@@ -25,9 +25,5 @@ defmodule AmSaml.Decoder do
     )
 
     %{c: cert, a: audience, i: issue_instant, d: doc}
-    Logger.info(fn -> "Cert " <> inspect(cert) end )
-    Logger.info(fn -> "Audience " <> inspect(audience) end )
-    Logger.info(fn -> "Issue instant " <> inspect(issue_instant) end )
-    Logger.info(fn -> "Doc " <> inspect(doc) end )
   end
 end
