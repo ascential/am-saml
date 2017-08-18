@@ -6,8 +6,11 @@ defmodule AmSaml.Validator do
   @doc """
   Compares the certificate from the SAMLResponse with the certificate expected in env variables
   """
-  def valid_cert?(cert, cert), do: true
-  def valid_cert?(user_cert, saml_cert), do: false
+  def valid_cert?(user_cert, saml_cert) do
+    x = user_cert |> String.trim |> String.replace("\n", "")
+    y = saml_cert |> String.trim |> String.replace("\n", "")
+    x == y
+  end
 
   @doc """
   Compares the audience from the SAMLResponse with the audience expected in env variables

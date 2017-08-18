@@ -32,7 +32,7 @@ defmodule AmSaml do
     Logger.info(fn -> "Audience:" <> inspect(String.trim(audience)) end )
     Logger.info(fn -> "SAML Audience:" <> inspect(String.trim(saml_audience)) end )
 
-    if Validator.valid_cert?(String.trim(cert), String.trim(saml_cert)) && Validator.valid_audience?(String.trim(audience), String.trim(saml_audience)) do
+    if Validator.valid_cert?(cert, saml_cert) && Validator.valid_audience?(String.trim(audience), String.trim(saml_audience)) do
       Generator.saml_response(relay_state, issue_instant, doc, samlFields)
     else
       nil
