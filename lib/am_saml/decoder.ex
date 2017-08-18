@@ -9,8 +9,6 @@ defmodule AmSaml.Decoder do
   Decodes the SAML response and extracts the fields for further authentication
   """
   def saml_response(resp) do
-    Logger.info(fn -> "Encoded response " <> inspect(resp) end )
-
     {:ok, saml_response} = Base.decode64(resp)
 
     Logger.info(fn -> "Decoded response " <> inspect(saml_response) end )
