@@ -3,12 +3,17 @@ defmodule AmSaml.Decoder do
   Decodes the response from the SAML provider.
   """
   import SweetXml
+  require Logger
 
   @doc """
   Decodes the SAML response and extracts the fields for further authentication
   """
   def saml_response(resp) do
+    Logger.info(fn -> "Encoded response " <> inspect(resp) end )
+
     {:ok, saml_response} = Base.decode64(resp)
+
+    Logger.info(fn -> "Decoded response " <> inspect(saml_response) end )
 
     doc = parse(saml_response, namespace_conformant: true)
     %{c: cert, a: audience, i: issue_instant} = doc |> xmap(
@@ -24,5 +29,9 @@ defmodule AmSaml.Decoder do
     )
 
     %{c: cert, a: audience, i: issue_instant, d: doc}
+    Logger.info(fn -> "Cert " <> inspect(cert) end )
+    Logger.info(fn -> "Audience " <> inspect(audience) end )
+    Logger.info(fn -> "Issue instant " <> inspect(issue_instant) end )
+    Logger.info(fn -> "Doc " <> inspect(doc) end )
   end
 end

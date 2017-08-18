@@ -3,6 +3,7 @@ defmodule AmSaml do
   Provides auth-related functions.
   """
   alias AmSaml.{Decoder, Encoder, Generator, Validator}
+  require Logger
 
   @doc """
   Provides the redirect url to the saml_provider
@@ -24,6 +25,12 @@ defmodule AmSaml do
   """
   def auth(%{"RelayState" => relay_state, "SAMLResponse" => saml_response}, samlFields, [saml_cert, saml_audience]) do
     %{c: cert, a: audience, i: issue_instant, d: doc} = Decoder.saml_response(saml_response)
+
+    Logger.info(fn -> "Relay state " <> inspect(relay_state) end )
+    Logger.info(fn -> "SAMLResponse " <> inspect(saml_response) end )
+    Logger.info(fn -> "Saml Fields " <> inspect(saml_fields) end )
+    Logger.info(fn -> "SAML Cert " <> inspect(saml_cert) end )
+    Logger.info(fn -> "SAML Audience " <> inspect(saml_audience) end )
 
     if Validator.valid_cert?(cert, saml_cert) && Validator.valid_audience?(audience, saml_audience) do
       Generator.saml_response(relay_state, issue_instant, doc, samlFields)
