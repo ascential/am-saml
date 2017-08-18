@@ -28,7 +28,7 @@ defmodule AmSaml do
 
     Logger.info(fn -> "Relay state " <> inspect(relay_state) end )
     Logger.info(fn -> "SAMLResponse " <> inspect(saml_response) end )
-    Logger.info(fn -> "Saml Fields " <> inspect(saml_fields) end )
+    Logger.info(fn -> "Saml Fields " <> inspect(samlFields) end )
     Logger.info(fn -> "SAML Cert " <> inspect(saml_cert) end )
     Logger.info(fn -> "SAML Audience " <> inspect(saml_audience) end )
 
