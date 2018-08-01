@@ -25,9 +25,6 @@ defmodule AmSaml do
   def auth(%{"RelayState" => relay_state, "SAMLResponse" => saml_response}, samlFields, [saml_cert, saml_audience]) do
     %{c: cert, a: audience, i: issue_instant, d: doc} = Decoder.saml_response(saml_response)
 
-IO.inspect(audience)
-IO.inspect(saml_audience)
-
     if Validator.valid_cert?(cert, saml_cert) && Validator.valid_audience?(audience, saml_audience) do
       Generator.saml_response(relay_state, issue_instant, doc, samlFields)
     else
