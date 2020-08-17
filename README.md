@@ -2,21 +2,16 @@
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `am_saml` to your list of dependencies in `mix.exs`:
+The package can be installed by adding `am_saml` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:am_saml, "~> 0.2.0"}]
+  [{:am_saml, git: "git@github.com:ascential/am-saml.git"}]
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/am_saml](https://hexdocs.pm/am_saml).
-
 ## Configuration
-Add this to your /config/dev.exs:
+Add this to your `/config/dev.exs`:
 
 ```elixir
 config :am_saml,
@@ -26,7 +21,7 @@ config :am_saml,
   saml_cert: "CERT"
 ```
 
-To use this in production we recommend using system environment variables like this in your /config/prod.exs:
+To use this in production we recommend using system environment variables like this in your `/config/prod.exs`:
 
 ```elixir
 config :am_saml,
@@ -70,7 +65,6 @@ end
 
 defmodule ExampleApp.Plug.Auth do
   import Plug.Conn
-  import AmSaml
 
   def init(default), do: default
 
@@ -78,15 +72,15 @@ defmodule ExampleApp.Plug.Auth do
     case get_session(conn, :auth) do
       nil ->
         conn
-        |> Phoenix.Controller.redirect(external: auth_redirect(conn.request_path))
+        |> Phoenix.Controller.redirect(external: AmSaml.auth_redirect(conn.request_path))
         |> halt
       _ ->
         conn
     end
   end
 
-  def login(conn, samlInfo, samlFields) do
-    decoded_response = auth(samlInfo, samlFields)
+  def login(conn, saml_info, saml_fields) do
+    decoded_response = AmSaml.auth(saml_info, saml_fields)
 
     case decoded_response do
       nil ->
@@ -124,14 +118,3 @@ scope "/", ExampleApp do
   resources "/session", SessionController, only: [:create]
 end
 ```
-
-## Docs
-To generate docs run:
-
-```bash
-mix docs
-```
-
-## Todo
-* Add more authentication strategies
-* Improve code
