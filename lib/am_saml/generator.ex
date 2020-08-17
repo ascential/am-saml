@@ -15,7 +15,7 @@ defmodule AmSaml.Generator do
         },
         Enum.reduce(
           optFields, %{},
-          fn(x, a) ->
+          fn x, a ->
             extract_opt_fields(x, a, doc)
           end
         )
@@ -25,7 +25,7 @@ defmodule AmSaml.Generator do
   defp extract_opt_fields(key, acc, doc) do
     %{x: extracted} = doc |> xmap(
       x: ~x{//saml2:Attribute[@Name="#{key}"]/saml2:AttributeValue/text()}s
-          |> add_namespace("saml2", "urn:oasis:names:tc:SAML:2.0:assertion"),
+          |> add_namespace("saml2", "urn:oasis:names:tc:SAML:2.0:assertion")
     )
     Map.put(acc, key, extracted)
   end
