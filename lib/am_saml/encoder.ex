@@ -13,6 +13,7 @@ defmodule AmSaml.Encoder do
         xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
         ID="#{unique_id()}"
         Version="2.0"
+        ForceAuthn="true"
         IssueInstant="#{DateTime.to_iso8601(DateTime.utc_now)}"
         AssertionConsumerServiceIndex="0">
         <saml:Issuer>
