@@ -31,7 +31,7 @@ defmodule AmSaml do
     saml_audience = Application.get_env(:am_saml, :saml_audience)
 
     if Validator.valid_cert?(cert, saml_cert) && Validator.valid_audience?(audience, saml_audience) do
-      Generator.saml_response(relay_state, issue_instant, doc, fields)
+      Generator.extract_fields(relay_state, issue_instant, doc, fields)
     else
       nil
     end
