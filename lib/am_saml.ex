@@ -8,8 +8,8 @@ defmodule AmSaml do
   Provides the redirect url to the saml_provider
   """
   def auth_redirect(relay_state) do
-    idp_url = Application.get_env(:am_saml, :saml_idp_url)
-    issuer = Application.get_env(:am_saml, :saml_issuer)
+    idp_url = Application.get_env(:am_saml, :idp_url)
+    issuer = Application.get_env(:am_saml, :issuer)
     ~s{#{idp_url}?SAMLRequest=#{Encoder.auth_request(issuer)}&RelayState=#{Base.url_encode64(relay_state)}}
   end
 
@@ -27,8 +27,8 @@ defmodule AmSaml do
   def auth(%{"RelayState" => relay_state, "SAMLResponse" => saml_response}, fields) do
     %{c: cert, a: audience, i: issue_instant, d: doc} = Decoder.saml_response(saml_response)
 
-    saml_cert = Application.get_env(:am_saml, :saml_cert)
-    saml_audience = Application.get_env(:am_saml, :saml_audience)
+    saml_cert = Application.get_env(:am_saml, :cert)
+    saml_audience = Application.get_env(:am_saml, :audience)
 
     if Validator.valid_cert?(cert, saml_cert) && Validator.valid_audience?(audience, saml_audience) do
       Generator.extract_fields(relay_state, issue_instant, doc, fields)

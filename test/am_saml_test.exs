@@ -4,7 +4,7 @@ defmodule AmSamlTest do
   @relay_state "http://redirect/url"
 
   test "a correct url is generated" do
-    idp_url = Application.get_env(:am_saml, :saml_idp_url)
+    idp_url = Application.get_env(:am_saml, :idp_url)
     result = AmSaml.auth_redirect(@relay_state)
     assert Regex.match?(~r/^#{idp_url}\?SAMLRequest=.*&RelayState=.*$/, result)
   end

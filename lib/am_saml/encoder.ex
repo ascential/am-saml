@@ -33,14 +33,14 @@ defmodule AmSaml.Encoder do
   defp issue_instant, do: DateTime.to_iso8601(DateTime.utc_now)
 
   defp acs_index do
-    case Application.get_env(:am_saml, :saml_acs_index) do
+    case Application.get_env(:am_saml, :acs_index) do
       idx when is_integer(idx) -> idx
       _ -> 0
     end
   end
 
   defp force_authn do
-    case Application.get_env(:am_saml, :saml_force_authn) do
+    case Application.get_env(:am_saml, :force_authn) do
       false -> false
       _ -> true
     end

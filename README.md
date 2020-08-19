@@ -15,24 +15,24 @@ Add this to your `/config/dev.exs`:
 
 ```elixir
 config :am_saml,
-  saml_idp_url: "saml_idp_url",
-  saml_issuer: "AM_SAML",
-  saml_audience: "saml_audience",
-  saml_cert: "CERT",
-  saml_acs_index: 0,
-  saml_force_authn: true
+  idp_url: "saml_idp_url",
+  issuer: "AM_SAML",
+  audience: "saml_audience",
+  cert: "CERT",
+  acs_index: 0,
+  force_authn: true
 ```
 
 To use this in production we recommend using system environment variables like this in your `/config/prod.exs`:
 
 ```elixir
 config :am_saml,
-  saml_idp_url:  System.get_env("SAML_IDP_URL"),
-  saml_issuer:   System.get_env("SAML_ISSUER"),
-  saml_audience: System.get_env("SAML_AUDIENCE"),
-  saml_cert:     System.get_env("SAML_CERT"),
-  saml_acs_index: System.get_env("SAML_ACS_INDEX"),
-  saml_force_authn: true
+  idp_url:  System.get_env("SAML_IDP_URL"),
+  issuer:   System.get_env("SAML_ISSUER"),
+  audience: System.get_env("SAML_AUDIENCE"),
+  cert:     System.get_env("SAML_CERT"),
+  acs_index: System.get_env("SAML_ACS_INDEX"),
+  force_authn: true
 
 ```
 
