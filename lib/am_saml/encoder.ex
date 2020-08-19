@@ -13,9 +13,9 @@ defmodule AmSaml.Encoder do
         xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
         ID="#{unique_id()}"
         Version="2.0"
-        ForceAuthn="true"
-        IssueInstant="#{DateTime.to_iso8601(DateTime.utc_now)}"
-        AssertionConsumerServiceIndex="0">
+        ForceAuthn="#{force_authn()}"
+        IssueInstant="#{issue_instant()}"
+        AssertionConsumerServiceIndex="#{acs_index()}">
         <saml:Issuer>
           #{saml_issuer}
         </saml:Issuer>
@@ -29,4 +29,20 @@ defmodule AmSaml.Encoder do
   end
 
   defp unique_id, do: Base.encode64(:crypto.strong_rand_bytes(16))
+
+  defp issue_instant, do: DateTime.to_iso8601(DateTime.utc_now)
+
+  defp acs_index do
+    case Application.get_env(:am_saml, :saml_acs_index) do
+      idx when is_integer(idx) -> idx
+      _ -> 0
+    end
+  end
+
+  defp force_authn do
+    case Application.get_env(:am_saml, :saml_force_authn) do
+      false -> false
+      _ -> true
+    end
+  end
 end
