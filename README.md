@@ -36,8 +36,9 @@ config :am_saml,
 
 ```
 
-`saml_acs_index` is optional, default `0`
-`saml_force_authn` is optional, default `true`
+`acs_index` is optional, default `0`
+
+`force_authn` is optional, default `true`
 
 ## Phoenix example usage
 
