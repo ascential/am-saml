@@ -35,6 +35,11 @@ defmodule AmSaml.Encoder do
   defp acs_index do
     case Application.get_env(:am_saml, :acs_index) do
       idx when is_integer(idx) -> idx
+      idx when is_binary(idx) ->
+        case Integer.parse(idx) do
+          {idx, _} when is_integer(idx) -> idx
+          _ -> 0
+        end
       _ -> 0
     end
   end
