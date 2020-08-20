@@ -127,3 +127,7 @@ scope "/", ExampleApp do
   resources "/session", SessionController, only: [:create]
 end
 ```
+
+## License
+
+This package is available under the terms of the [BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause). License can be found in the [LICENSE](LICENSE) file in this directory.
