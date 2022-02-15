@@ -27,7 +27,7 @@ defmodule AmSaml.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
-    [extra_applications: [:logger]]
+    [extra_applications: [:logger, :crypto]]
   end
 
   # Dependencies can be Hex packages:
@@ -41,7 +41,7 @@ defmodule AmSaml.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:sweet_xml, "~> 0.6.0"},
+      {:sweet_xml, "~> 0.7"},
       {:credo, "~> 1.4.0", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.22.0", only: :dev, runtime: false}
     ]
